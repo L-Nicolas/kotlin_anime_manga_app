@@ -1,4 +1,4 @@
-package com.example.kotlinanimemangaapp.ui.theme
+package com.example.kotlinanimemangaapp.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
