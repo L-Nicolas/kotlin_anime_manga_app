@@ -3,60 +3,24 @@ package com.example.kotlinanimemangaapp.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.kotlinanimemangaapp.common.Resource
-import com.example.kotlinanimemangaapp.di.AppModule
-import com.example.kotlinanimemangaapp.domain.interactor.get_mangas.GetMangasUC
-import com.example.kotlinanimemangaapp.presentation.ui.theme.KotlinAnimeMangaAppTheme
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.kotlinanimemangaapp.presentation.navigation.nav_graph.SetupNavGraph
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 
-class MainActivity : ComponentActivity() {
+class StartActivity : ComponentActivity() {
+    lateinit var navController: NavHostController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             val context = LocalContext.current
             FirebaseApp.initializeApp(context)
-            writeUserInFirestore()
-            /*runBlocking {
-                val mangaApi = AppModule.provideMangaApi()
-                val mangaRepository = AppModule.provideMangaRepository(mangaApi)
 
-                val mangaFlow = GetMangasUC(mangaRepository).invoke()
-
-                mangaFlow.collect { resource ->
-                    when (resource) {
-                        is Resource.Loading -> {
-                            println("Loading...")
-                        }
-                        is Resource.Success -> {
-                            println(resource.data?.toString())
-                        }
-                        is Resource.Error -> {
-                            println(resource.message)
-                        }
-                    }
-                }
-            }*/
-            KotlinAnimeMangaAppTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Nicolas")
-                }
-            }
+            navController = rememberNavController()
+            SetupNavGraph(navController = navController)
         }
     }
 }
@@ -134,12 +98,4 @@ fun writeUserInFirestore() {
         .addOnFailureListener { e ->
             println("Error adding document ${e.message}")
         }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name !",
-        modifier = modifier
-    )
 }
