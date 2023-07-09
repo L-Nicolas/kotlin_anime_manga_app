@@ -1,5 +1,8 @@
 package com.example.kotlinanimemangaapp.domain.model
 
 data class Manga(
-    val title: String
+    val id: Int,
+    val popularity: Int,
+    val title: String,
+    val image_url: String
 )

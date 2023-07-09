@@ -24,6 +24,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.kotlinanimemangaapp.presentation.navigation.nav_graph.Graph
+import com.example.kotlinanimemangaapp.presentation.navigation.nav_graph.Graph.AUTHENTICATION_ROUTE
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.delay
@@ -40,10 +42,11 @@ fun AnimatedSplashScreen(navController: NavHostController) {
 
     LaunchedEffect(key1 = true) {
         startAnimation = true
-        delay(4000)
+        //delay(4000)
+        delay(1000)
         navController.popBackStack()
-        if (isUserConnected()) navController.navigate(MAIN_ROUTE)
-        else navController.navigate(AUTHENTICATION_ROUTE)
+        if (isUserConnected()) navController.navigate(Graph.HOME_ROUTE)
+        else navController.navigate(Graph.AUTHENTICATION_ROUTE)
     }
     Splash(alpha = alphaAnim.value)
 }

@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.kotlinanimemangaapp.presentation.StartActivity
+import com.example.kotlinanimemangaapp.presentation.navigation.nav_graph.Graph
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -42,8 +43,9 @@ fun ProfileScreen(
                 modifier = Modifier
                     .clickable {
                         auth.signOut()
+                        //navController.navigate(Graph.AUTHENTICATION_ROUTE)
                         val intent = Intent(context, StartActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        //intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         context.startActivity(intent)
                         //clear current activity
 

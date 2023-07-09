@@ -11,4 +11,8 @@ class MangaDatasource @Inject constructor(
 ) : MangaRepository {
 
     override suspend fun getManga(): Manga? = mangaApi.getManga().data?.toManga()
+
+    override suspend fun getMangas(): List<Manga> = mangaApi.getMangas().data?.map {
+        it.toManga()
+    } ?: emptyList()
 }

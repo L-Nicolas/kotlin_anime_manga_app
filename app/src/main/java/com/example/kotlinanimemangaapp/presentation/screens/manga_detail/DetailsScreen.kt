@@ -1,4 +1,4 @@
-package com.example.kotlinanimemangaapp.presentation.screens
+package com.example.kotlinanimemangaapp.presentation.screens.manga_detail
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

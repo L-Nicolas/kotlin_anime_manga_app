@@ -2,7 +2,7 @@ package com.example.kotlinanimemangaapp.data.remote.dto.assets
 
 import com.squareup.moshi.Json
 
-data class MangaResponse(
+data class MangaDetailResponse(
     @Json(name = "data")
-    val `data`: List<MangaDto>
+    val `data`: MangaDto
 )

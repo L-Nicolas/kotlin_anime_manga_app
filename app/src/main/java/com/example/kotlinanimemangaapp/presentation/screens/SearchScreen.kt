@@ -14,11 +14,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.kotlinanimemangaapp.presentation.navigation.nav_graph.Graph
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 
 @Composable
 fun SearchScreen(
     navController: NavController
 ) {
+    searchMyFriendsFromFirestore()
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -33,7 +37,7 @@ fun SearchScreen(
             Text(
                 modifier = Modifier
                     .clickable {
-                        navController.navigate(AUTHENTICATION_ROUTE)
+                        navController.navigate(Graph.AUTHENTICATION_ROUTE)
                     },
                 text = "Login",
                 color = Color(0xFFFF0000),
@@ -48,4 +52,59 @@ fun SearchScreen(
 @Preview(showBackground = true)
 fun SearchScreenPreview() {
     SearchScreen(navController = rememberNavController())
+}
+
+fun getAllUsersFromFirestore() {
+    val firestore = FirebaseFirestore.getInstance()
+    firestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
+
+    firestore
+        .collection("users")
+        .get()
+        .addOnSuccessListener { documents ->
+            try {
+                if (documents != null) {
+                    for (document in documents) {
+                        document.data?.forEach { (key, value) ->
+                            println("$key => $value")
+                        }
+                    }
+                } else {
+                    println("Error getting documents")
+                }
+            } catch (ex: Exception) {
+                println("Error getting documents")
+            }
+        }
+        .addOnFailureListener { e ->
+            println("Error getting documents ${e.message}")
+        }
+}
+
+fun searchMyFriendsFromFirestore() {
+    val firestore = FirebaseFirestore.getInstance()
+    firestore.firestoreSettings = FirebaseFirestoreSettings.Builder().build()
+
+    firestore
+        .collection("friends")
+        .whereEqualTo("id_user", "7OAdq3iVxa9GUSJTrSqZ")
+        .get()
+        .addOnSuccessListener { documents ->
+            try {
+                if (documents != null) {
+                    for (document in documents) {
+                        document.data?.forEach { (key, value) ->
+                            println("$key => $value")
+                        }
+                    }
+                } else {
+                    println("Error getting documents")
+                }
+            } catch (ex: Exception) {
+                println("Error getting documents")
+            }
+        }
+        .addOnFailureListener { e ->
+            println("Error getting documents ${e.message}")
+        }
 }

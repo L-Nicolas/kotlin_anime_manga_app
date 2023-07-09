@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.kotlinanimemangaapp.presentation.components.LoginButton
+import com.example.kotlinanimemangaapp.presentation.navigation.nav_graph.Graph
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -86,7 +87,7 @@ fun LoginScreen(
                             "Authentication succeeded.",
                             Toast.LENGTH_SHORT
                         ).show()
-                        navController.navigate(MAIN_ROUTE)
+                        navController.navigate(Graph.HOME_ROUTE)
                     } else {
                         // If sign in fails, display a message to the user
                         Toast.makeText(
@@ -165,7 +166,7 @@ fun LoginScreen(
                             if (user != null) {
                                 user.sendEmailVerification()
                             }
-                            navController.navigate(MAIN_ROUTE)
+                            navController.navigate(Graph.HOME_ROUTE)
                             // updateUI(user)
                         } else {
                             // If sign in fails, display a message to the user
