@@ -12,8 +12,8 @@ import javax.inject.Inject
 class GetMangasUC @Inject constructor(
     private val mangaRepository: MangaRepository
 ) {
-    operator fun invoke(name: String): Flow<Resource<Manga>> = flow {
-        val manga = mangaRepository.getManga()
+    operator fun invoke(mangaId: Int): Flow<Resource<Manga>> = flow {
+        val manga = mangaRepository.getManga(mangaId)
         if (manga == null) {
             emit(Resource.Error(message = "No data found"))
         } else {
