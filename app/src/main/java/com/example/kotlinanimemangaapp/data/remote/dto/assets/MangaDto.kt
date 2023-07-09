@@ -11,11 +11,11 @@ data class MangaDto(
     @Json(name = "background")
     val background: String,
     @Json(name = "chapters")
-    val chapters: Int,
+    val chapters: Int?,
     @Json(name = "demographics")
-    val demographics: List<Demographic>,
+    val demographics: List<Demographic>?,
     @Json(name = "explicit_genres")
-    val explicitGenres: List<ExplicitGenre>,
+    val explicitGenres: List<ExplicitGenre>?,
     @Json(name = "favorites")
     val favorites: Int,
     @Json(name = "genres")
@@ -43,15 +43,15 @@ data class MangaDto(
     @Json(name = "status")
     val status: String,
     @Json(name = "synopsis")
-    val synopsis: String,
+    val synopsis: String?,
     @Json(name = "themes")
-    val themes: List<Theme>,
+    val themes: List<Theme>?,
     @Json(name = "title")
-    val title: String,
+    val title: String?,
     @Json(name = "title_english")
-    val titleEnglish: String,
+    val titleEnglish: String?,
     @Json(name = "title_japanese")
-    val titleJapanese: String,
+    val titleJapanese: String?,
     @Json(name = "titles")
     val titles: List<Title>,
     @Json(name = "type")
@@ -59,9 +59,12 @@ data class MangaDto(
     @Json(name = "url")
     val url: String,
     @Json(name = "volumes")
-    val volumes: Int
+    val volumes: Int?
 )
 
 fun MangaDto.toManga(): Manga = Manga(
-    title = title ?: ""
+    id = malId ?: 0,
+    title = title ?: "",
+    popularity = popularity ?: 0,
+    image_url = images.jpg.imageUrl ?: ""
 )

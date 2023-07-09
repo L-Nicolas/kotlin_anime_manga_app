@@ -10,5 +10,9 @@ class MangaDatasource @Inject constructor(
     private val mangaApi: MangaApi
 ) : MangaRepository {
 
-    override suspend fun getManga(): Manga? = mangaApi.getManga().data?.toManga()
+    override suspend fun getManga(mangaId: Int): Manga? = mangaApi.getManga(mangaId).data?.toManga()
+
+    override suspend fun getMangas(): List<Manga> = mangaApi.getMangas().data?.map {
+        it.toManga()
+    } ?: emptyList()
 }
